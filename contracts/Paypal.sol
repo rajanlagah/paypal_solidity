@@ -28,18 +28,18 @@ contract Paypal {
         string otherPartyName;
     }
 
-    struct userName {
+    struct user_name {
         string name;
         bool hasName;
     }
 
-    mapping(address => userName) names;
+    mapping(address => user_name) names;
     mapping(address => request[]) requests;
     mapping(address => send_receive[]) history;
 
     // Add a name to wallet address
     function addName(string memory _name) public {
-        userName storage newUserName = names[msg.sender];
+        user_name storage newUserName = names[msg.sender];
         newUserName.name = _name;
         newUserName.hasName = true;
     }
@@ -73,7 +73,7 @@ contract Paypal {
         request[] storage myRequests = requests[msg.sender];
         request storage payableRequest = myRequests[_request_index];
 
-        uint256 toPay = payableRequest.amount * 1000000000000000000;
+        uint256 toPay = payableRequest.amount * 1000000000000000; // upto 3 decimal places
         require(msg.value == toPay, "pay correct amount");
         myRequests.pop();
         addHistory(
@@ -113,20 +113,25 @@ contract Paypal {
     }
 
     // Get all requests sent to a user
-    function getAllRequests(address _user_address) public returns(
-        address[] memory, // for address
-        uint256[] memory, // for amount
-        string[] memory, // for msgs
-        string[] memory // for names
-    ) {
+    function getAllRequests(
+        address _user_address
+    )
+        public
+        view
+        returns (
+            address[] memory, // for address
+            uint256[] memory, // for amount
+            string[] memory, // for msgs
+            string[] memory // for names
+        )
+    {
         uint256 total_requests = requests[_user_address].length;
         address[] memory all_address = new address[](total_requests); // can not use arr.push for memory array
         uint256[] memory all_amounts = new uint256[](total_requests);
         string[] memory all_msgs = new string[](total_requests);
-        string[] memory all_names = new string[](total_requests);
+        string[] memory all_names = new string[](total_requests); 
 
-
-        for( uint i = 0; i < total_requests ; i++){
+        for (uint i = 0; i < total_requests; i++) {
             request storage myRequest = requests[_user_address][i];
             all_address[i] = myRequest.requestor;
             all_amounts[i] = myRequest.amount;
@@ -139,4 +144,15 @@ contract Paypal {
     }
 
     // Get all historic transactions user has been part of
+    function getMyHistory(
+        address _user_address
+    ) public view returns (send_receive[] memory) {
+        return history[_user_address];
+    }
+
+    function getMyName(
+        address _user_address
+    ) public view returns (user_name memory) {
+        return names[_user_address];
+    }
 }

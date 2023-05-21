@@ -12,3 +12,18 @@ npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
 # paypal_solidity
+
+## Compile 
+```shell
+npx hardhat compile
+```
+## Deploy 
+Make sure you have sufficient Matic in your given account
+```shell
+npx hardhat run scripts//deploy.js --network mumbai
+```
+## Verify
+
+```shell
+npx hardhat verify <contract-address>
+```
