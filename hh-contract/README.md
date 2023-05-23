@@ -27,3 +27,5 @@ npx hardhat run scripts//deploy.js --network mumbai
 ```shell
 npx hardhat verify <contract-address>
 ```
+
+Contract address example `0xb4eba79679549374e84b6911d5C2D3F5e8A23410`
