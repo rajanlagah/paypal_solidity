@@ -40,7 +40,6 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
     // onSuccess:isSuccessCreateReq
   } = useWeb3Contract({
     abi: ABI,
-    onSuccess: () => console.log("done"),
     chainId,
     contractAddress: "0xFACb04C23b21f40A725b18F8d4AA5571e183dc7C",
     functionName: "createRequest",

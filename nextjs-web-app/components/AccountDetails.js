@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import SetUserName from "./SetUserName";
+// import matic from "../matic.png";
 
-function AccountDetails({ name, balance, address = "" }) {
+function AccountDetails({ name,getSetNameAndBalance, balance, address = "" }) {
+  const [userName, setuserName] = useState(name);
   return (
     <Card title="Account Details" style={{ width: "100%" }}>
       <div className="accountDetailRow">
@@ -22,10 +25,11 @@ function AccountDetails({ name, balance, address = "" }) {
           <div className="accountDetailBody">{balance} Matic</div>
         </div>
       </div>
-      <div className="balanceOptions">
-        <div className="extraOption">Set Username</div>
-        <div className="extraOption">Switch Accounts</div>
-      </div>
+      <SetUserName
+        setuserName={setuserName}
+        userName={userName}
+        getSetNameAndBalance={getSetNameAndBalance}
+      />
     </Card>
   );
 }

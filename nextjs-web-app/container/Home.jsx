@@ -117,7 +117,7 @@ export default function HomePage() {
               requests={requests}
               getSetNameAndBalance={getSetNameAndBalance}
             />
-            <AccountDetails name={name} address={address} balance={balance} />
+            <AccountDetails getSetNameAndBalance={getSetNameAndBalance} name={name} address={address} balance={balance} />
           </div>
           <div className="secondColumn">
             <RecentActivity history={history} />
