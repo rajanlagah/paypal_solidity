@@ -20,12 +20,16 @@ npx hardhat compile
 ## Deploy 
 Make sure you have sufficient Matic in your given account
 ```shell
-npx hardhat run scripts//deploy.js --network mumbai
+npx hardhat run scripts/deploy.js --network mumbai
 ```
 ## Verify
 
 ```shell
-npx hardhat verify <contract-address>
+npx hardhat verify <contract-address> --network mumbai
 ```
 
-Contract address example `0xb4eba79679549374e84b6911d5C2D3F5e8A23410`
+Contract address example 
+
+v1 - `0xb4eba79679549374e84b6911d5C2D3F5e8A23410`
+
+v2 - `0xFACb04C23b21f40A725b18F8d4AA5571e183dc7C`

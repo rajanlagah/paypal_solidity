@@ -75,13 +75,31 @@ contract Paypal {
 
         uint256 toPay = payableRequest.amount * 1000000000000000; // upto 3 decimal places
         require(msg.value == toPay, "pay correct amount");
+
+        /*
+            old code which worked just only for 1st time 
         myRequests.pop();
+
         addHistory(
             msg.sender,
             payableRequest.requestor,
             payableRequest.amount,
             payableRequest.message
         );
+
+        suspect request never got rmv from requests array 
+        */
+
+        addHistory(
+            msg.sender,
+            payableRequest.requestor,
+            payableRequest.amount,
+            payableRequest.message
+        );
+
+        myRequests[_request_index] = myRequests[myRequests.length - 1];
+        myRequests.pop();
+
         payable(payableRequest.requestor).transfer(msg.value);
     }
 
@@ -129,7 +147,7 @@ contract Paypal {
         address[] memory all_address = new address[](total_requests); // can not use arr.push for memory array
         uint256[] memory all_amounts = new uint256[](total_requests);
         string[] memory all_msgs = new string[](total_requests);
-        string[] memory all_names = new string[](total_requests); 
+        string[] memory all_names = new string[](total_requests);
 
         for (uint i = 0; i < total_requests; i++) {
             request storage myRequest = requests[_user_address][i];

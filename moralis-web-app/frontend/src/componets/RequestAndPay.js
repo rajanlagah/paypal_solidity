@@ -17,8 +17,10 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
   const [requestAddress, setRequestAddress] = useState("");
   const [requestMessage, setRequestMessage] = useState("");
 
+  console.log(requests)
+
   const { config } = usePrepareContractWrite({
-    address: "0xb4eba79679549374e84b6911d5C2D3F5e8A23410",
+    address: "0xFACb04C23b21f40A725b18F8d4AA5571e183dc7C",
     abi: ABI,
     chainId: polygonMumbai.id,
     functionName: "payRequest",
@@ -33,7 +35,7 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
   });
 
   const { config: configForCreateRequest } = usePrepareContractWrite({
-    address: "0xb4eba79679549374e84b6911d5C2D3F5e8A23410",
+    address: "0xFACb04C23b21f40A725b18F8d4AA5571e183dc7C",
     abi: ABI,
     chainId: polygonMumbai.id,
     functionName: "createRequest",

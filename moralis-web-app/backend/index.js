@@ -28,7 +28,7 @@ app.get("/getNameAndBalance", async (req, res) => {
 
   const response = await Moralis.EvmApi.utils.runContractFunction({
     chain: "80001",
-    address: "0xb4eba79679549374e84b6911d5C2D3F5e8A23410",
+    address: "0xFACb04C23b21f40A725b18F8d4AA5571e183dc7C",
     functionName: "getMyName",
     abi: ABI,
     params: { _user_address: userAddress }
@@ -54,7 +54,7 @@ app.get("/getNameAndBalance", async (req, res) => {
 
   const response_history = await Moralis.EvmApi.utils.runContractFunction({
     chain: "80001",
-    address: "0xb4eba79679549374e84b6911d5C2D3F5e8A23410",
+    address: "0xFACb04C23b21f40A725b18F8d4AA5571e183dc7C",
     functionName: "getMyHistory",
     abi: ABI,
     params: { _user_address: userAddress }
@@ -64,7 +64,7 @@ app.get("/getNameAndBalance", async (req, res) => {
 
   const response_request = await Moralis.EvmApi.utils.runContractFunction({
     chain: "80001",
-    address: "0xb4eba79679549374e84b6911d5C2D3F5e8A23410",
+    address: "0xFACb04C23b21f40A725b18F8d4AA5571e183dc7C",
     functionName: "getAllRequests",
     abi: ABI,
     params: { _user_address: userAddress }
