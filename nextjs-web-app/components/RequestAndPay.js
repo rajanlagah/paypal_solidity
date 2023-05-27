@@ -11,7 +11,8 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
   const [requestAmount, setRequestAmount] = useState(5);
   const [requestAddress, setRequestAddress] = useState("");
   const [requestMessage, setRequestMessage] = useState("");
-  // const [isSuccessCreateReq, setisSuccessCreateReq] = useState(false);
+  const [isSuccessCreateReq, setisSuccessCreateReq] = useState(false);
+  const [isSuccessPayReq, setisSuccessPayReq] = useState(false);
 
   const { chainId: chainIdHex, isWeb3Enabled, account } = useMoralis();
   const chainId = parseInt(chainIdHex);
@@ -19,45 +20,44 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
   const {
     runContractFunction: payRequest,
     isLoading,
-    isFetching,
-    isSuccess,
+    isFetching
+    // onSuccess:isSuccess,
   } = useWeb3Contract({
-    abi:ABI,
+    abi: ABI,
     chainId,
     contractAddress: "0xFACb04C23b21f40A725b18F8d4AA5571e183dc7C",
     functionName: "payRequest",
-    params: {_request_index:0},
-    msgValue: String(Number(requests["1"][0] * 1e15)),
+    params: { _request_index: 0 },
+    msgValue: String(Number(requests["1"][0] * 1e15))
   });
-
-
 
   // const createReq = () => {
   // console.log("requestAddress",requestAddress)
-    const {
-      runContractFunction: callCreateRequest,
-      // isLoading,
-      // isFetching,
-      isSuccess:isSuccessCreateReq
-    } = useWeb3Contract({
-      abi:ABI,
-      chainId,
-      contractAddress: "0xFACb04C23b21f40A725b18F8d4AA5571e183dc7C",
-      functionName: "createRequest",
-      params: {
-        _otherPartyAddress: requestAddress,
-        _amount: requestAmount,
-        _message: requestMessage
-      }
-    });
+  const {
+    runContractFunction: callCreateRequest
+    // isLoading,
+    // isFetching,
+    // onSuccess:isSuccessCreateReq
+  } = useWeb3Contract({
+    abi: ABI,
+    onSuccess: () => console.log("done"),
+    chainId,
+    contractAddress: "0xFACb04C23b21f40A725b18F8d4AA5571e183dc7C",
+    functionName: "createRequest",
+    params: {
+      _otherPartyAddress: requestAddress,
+      _amount: requestAmount,
+      _message: requestMessage
+    }
+  });
   //   callCreateRequest()
   // }
-
+  // console.log("isSecureContext - ",isSuccessCreateReq)
   useEffect(() => {
-    if (isSuccess || isSuccessCreateReq) {
+    if (isSuccessPayReq || isSuccessCreateReq) {
       getSetNameAndBalance();
     }
-  }, [isSuccess, isSuccessCreateReq]);
+  }, [isSuccessPayReq, isSuccessCreateReq]);
   const showPayModal = () => {
     setPayModal(true);
   };
@@ -74,15 +74,29 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
     setRequestModal(false);
   };
   // console.log(callCreateRequest)
+
+  const handleOnPayReqClick = async () => {
+    setisSuccessPayReq(false);
+    const res = await payRequest();
+    await res.wait(1);
+    setisSuccessPayReq(true);
+    hidePayModal();
+  };
+
+  const handleOnCreateReqClick = async () => {
+    setisSuccessCreateReq(false);
+    const res = await callCreateRequest();
+    await res.wait(1);
+    setisSuccessCreateReq(true);
+    hideRequestModal();
+  };
+
   return (
     <>
       <Modal
         title="Confirm Payment"
         open={payModal}
-        onOk={() => {
-          payRequest();
-          hidePayModal();
-        }}
+        onOk={handleOnPayReqClick}
         onCancel={hidePayModal}
         okText="Proceed To Pay"
         cancelText="Cancel"
@@ -98,16 +112,12 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
       <Modal
         title="Request A Payment"
         open={requestModal}
-        onOk={() => {
-          console.log("------------")
-          callCreateRequest();
-          hideRequestModal();
-        }}
+        onOk={handleOnCreateReqClick}
         onCancel={hideRequestModal}
         okText="Proceed To Request"
         cancelText="Cancel"
       >
-            {/* <h2>Sending req to {requestAddress}</h2> */}
+        {/* <h2>Sending req to {requestAddress}</h2> */}
         <p>Amount (Matic)</p>
         <InputNumber
           value={requestAmount}
