@@ -10,7 +10,8 @@ yarn.lock
 # Hardhat files
 cache
 artifacts
-.next
-moralis-web-app/frontend/node_modules/.cache/babel-loader/c3faaa19de3f523442c4c5d34742bd414c32e3cb919124848069c2af7ed018c3.json
+# .next
+# moralis-web-app/frontend/node_modules/.cache/babel-loader/c3faaa19de3f523442c4c5d34742bd414c32e3cb919124848069c2af7ed018c3.json
 nextjs-web-app/.DS_Store
 .gitignore
+.DS_Store

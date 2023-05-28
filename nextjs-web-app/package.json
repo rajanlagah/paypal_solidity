@@ -2,6 +2,9 @@
   "name": "nextjs-paypal",
   "version": "0.1.0",
   "private": false,
+  "repository": {
+    "url": "https://github.com/rajanlagah/paypal_solidity/tree/main/nextjs-web-app"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

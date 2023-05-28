@@ -1,0 +1,156 @@
+{
+  "../node_modules/@web3auth/openlogin-adapter/dist/openloginAdapter.esm.js -> @toruslabs/openlogin-ed25519": {
+    "id": 33946,
+    "files": [
+      "static/chunks/108.897c8a5c8b6539dd.js",
+      "static/chunks/418.93bf7c3d5d5c6d43.js"
+    ]
+  },
+  "../node_modules/@web3auth/openlogin-adapter/dist/openloginAdapter.esm.js -> @web3auth/ethereum-provider": {
+    "id": 52062,
+    "files": [
+      "static/chunks/061e6b60.28bd444bb64e34ae.js",
+      "static/chunks/796.c05246fcf8e7f8c1.js",
+      "static/chunks/62.6254702a8e6272e3.js",
+      "static/chunks/890.e6607d0f8cd1b65e.js"
+    ]
+  },
+  "../node_modules/@web3auth/openlogin-adapter/dist/openloginAdapter.esm.js -> @web3auth/solana-provider": {
+    "id": 44445,
+    "files": [
+      "static/chunks/8015bd09.06f1cdf96d514d9d.js",
+      "static/chunks/108.897c8a5c8b6539dd.js",
+      "static/chunks/374.bc79f48112374939.js",
+      "static/chunks/918.8c5a7673a808947e.js"
+    ]
+  },
+  "../node_modules/@web3auth/web3auth/dist/web3auth.esm.js -> @web3auth/metamask-adapter": {
+    "id": 94429,
+    "files": [
+      "static/chunks/429.43f13c4ef145688f.js"
+    ]
+  },
+  "../node_modules/@web3auth/web3auth/dist/web3auth.esm.js -> @web3auth/openlogin-adapter": {
+    "id": 86094,
+    "files": [
+      "static/chunks/29107295.99d6b2d20ce997ac.js",
+      "static/chunks/845.294b4fbccfae5fa5.js",
+      "static/chunks/94.356966a4d3ab3852.js"
+    ]
+  },
+  "../node_modules/@web3auth/web3auth/dist/web3auth.esm.js -> @web3auth/phantom-adapter": {
+    "id": 42848,
+    "files": [
+      "static/chunks/29107295.99d6b2d20ce997ac.js",
+      "static/chunks/8015bd09.06f1cdf96d514d9d.js",
+      "static/chunks/845.294b4fbccfae5fa5.js",
+      "static/chunks/108.897c8a5c8b6539dd.js",
+      "static/chunks/374.bc79f48112374939.js",
+      "static/chunks/532.ca6e2326c1aea012.js"
+    ]
+  },
+  "../node_modules/@web3auth/web3auth/dist/web3auth.esm.js -> @web3auth/torus-evm-adapter": {
+    "id": 44178,
+    "files": [
+      "static/chunks/796.c05246fcf8e7f8c1.js",
+      "static/chunks/178.5c9d3ca146f2e1bb.js",
+      "static/chunks/978.8f1e0b5b3ea79eb9.js"
+    ]
+  },
+  "../node_modules/@web3auth/web3auth/dist/web3auth.esm.js -> @web3auth/torus-solana-adapter": {
+    "id": 94423,
+    "files": [
+      "static/chunks/29107295.99d6b2d20ce997ac.js",
+      "static/chunks/8015bd09.06f1cdf96d514d9d.js",
+      "static/chunks/845.294b4fbccfae5fa5.js",
+      "static/chunks/108.897c8a5c8b6539dd.js",
+      "static/chunks/374.bc79f48112374939.js",
+      "static/chunks/423.6ce045b4660f5ca0.js",
+      "static/chunks/267.d52f9a057d762ede.js"
+    ]
+  },
+  "../node_modules/@web3auth/web3auth/dist/web3auth.esm.js -> @web3auth/wallet-connect-v1-adapter": {
+    "id": 6949,
+    "files": [
+      "static/chunks/29107295.99d6b2d20ce997ac.js",
+      "static/chunks/061e6b60.28bd444bb64e34ae.js",
+      "static/chunks/845.294b4fbccfae5fa5.js",
+      "static/chunks/796.c05246fcf8e7f8c1.js",
+      "static/chunks/62.6254702a8e6272e3.js",
+      "static/chunks/949.08f46c6d0a766aff.js",
+      "static/chunks/461.92dbc3f96a5f1728.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonColored.js": {
+    "id": 44132,
+    "files": [
+      "static/chunks/132.a90836e69c0a2e51.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonColored2.js": {
+    "id": 89243,
+    "files": [
+      "static/chunks/243.3c86ee49f21bc138.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonCustom.js": {
+    "id": 26140,
+    "files": [
+      "static/chunks/140.461d2b5d41aaa408.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonCustom2.js": {
+    "id": 20041,
+    "files": [
+      "static/chunks/41.8eba41d14a0184a4.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonOutline.js": {
+    "id": 89390,
+    "files": [
+      "static/chunks/390.a028ebf991fc32c5.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonOutline2.js": {
+    "id": 78552,
+    "files": [
+      "static/chunks/552.820a5dc75854fd5a.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonPrimary.js": {
+    "id": 41205,
+    "files": [
+      "static/chunks/205.63643a4c1d36b033.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonPrimary2.js": {
+    "id": 50220,
+    "files": [
+      "static/chunks/220.fd20b7a7eb2d1571.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonSecondary.js": {
+    "id": 20583,
+    "files": [
+      "static/chunks/583.aa9858a72f0906d6.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonSecondary2.js": {
+    "id": 47891,
+    "files": [
+      "static/chunks/891.6a618a63300ad87c.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonTranslucent.js": {
+    "id": 62590,
+    "files": [
+      "static/chunks/590.8ace0e2d82f0c073.js"
+    ]
+  },
+  "../node_modules/web3uikit/dist/index.js -> ./ButtonTranslucent2.js": {
+    "id": 33046,
+    "files": [
+      "static/chunks/46.bebf233de83f76e3.js"
+    ]
+  }
+}
