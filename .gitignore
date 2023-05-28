@@ -15,3 +15,4 @@ artifacts
 nextjs-web-app/.DS_Store
 .gitignore
 .DS_Store
+.vercel
