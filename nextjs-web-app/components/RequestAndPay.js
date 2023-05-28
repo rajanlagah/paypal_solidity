@@ -36,7 +36,7 @@ const RequestAndPay = ({
       {!waitingForConfirmation && requests && requests["0"].length > 0 && (
         <>
           <h2>Sending payment to {requests["3"][0]}</h2>
-          <p>"{requests["2"][0]}"</p>
+          <p>{requests["2"][0]}</p>
         </>
       )}
       {waitingForConfirmation && (
