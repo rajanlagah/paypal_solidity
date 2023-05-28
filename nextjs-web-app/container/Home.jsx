@@ -9,24 +9,22 @@ import RequestAndPay from "../components/RequestAndPay";
 import AccountDetails from "../components/AccountDetails";
 import RecentActivity from "../components/RecentActivity";
 import { Layout } from "antd";
+import fetchUserBalance from "../api/fetchUserBalance";
 
 const { Header, Content } = Layout;
 
-
-
-
 function convertArrayToObjects(arr) {
-    const dataArray = arr.map((transaction, index) => ({
-      key: (arr.length + 1 - index).toString(),
-      type: transaction[0],
-      amount: parseFloat(transaction[1].toString())/1000,
-      message: transaction[2],
-      address: `${transaction[3].slice(0, 4)}...${transaction[3].slice(0, 4)}`,
-      subject: transaction[4]
-    }));
-  
-    return dataArray.reverse();
-  }
+  const dataArray = arr.map((transaction, index) => ({
+    key: (arr.length + 1 - index).toString(),
+    type: transaction[0],
+    amount: parseFloat(transaction[1].toString()) / 1000,
+    message: transaction[2],
+    address: `${transaction[3].slice(0, 4)}...${transaction[3].slice(0, 4)}`,
+    subject: transaction[4]
+  }));
+
+  return dataArray.reverse();
+}
 
 export default function HomePage() {
   const [name, setName] = useState("...");
@@ -35,11 +33,11 @@ export default function HomePage() {
   const [dollarsBalance, setDollarsBalance] = useState("...");
   const [history, setHistory] = useState(null);
   const [requests, setRequests] = useState({ 1: [0], 0: [] });
+  const [address, setAddress] = useState();
 
   const { chainId: chainIdHex, isWeb3Enabled, account } = useMoralis();
   const chainId = parseInt(chainIdHex);
   //   "80001";
-  const [address, setAddress] = useState();
   useEffect(() => {
     if (isWeb3Enabled && account) {
       setAddress(account);
@@ -91,33 +89,54 @@ export default function HomePage() {
 
       // setBalance(String(response.balance));
       // setDollarsBalance(String(response.dollar_value));
-      if(_user_history){
-          setHistory(convertArrayToObjects(_user_history));
+      if (_user_history) {
+        setHistory(convertArrayToObjects(_user_history));
       }
-      if(_user_requests){
-        setRequests(_user_requests)
-    };
+      if (_user_requests) {
+        setRequests(_user_requests);
+      }
     } catch (e) {
       console.log("err", e);
     }
   };
+
   useEffect(() => {
     if (isWeb3Enabled && address) {
       getSetNameAndBalance();
+      getSetUserBalance()
     }
   }, [isWeb3Enabled, address]);
+
+  const getSetUserBalance = async () => {
+    try{
+        const res = await fetchUserBalance(address)
+        console.log("res",res)
+        if(!res.error){
+            setDollarsBalance(res.dollar_value)
+            setBalance(res.balance)
+        }
+        console.log("res res = ", res)
+    }catch(e){
+        console.log("Exception",e)
+    }
+  }
 
   return (
     <div className="App">
       <Layout>
         <Content className="content">
           <div className="firstColumn">
-            <CurrentBalance dollarsBalance={"0"} />
+            <CurrentBalance dollarsBalance={dollarsBalance} />
             <RequestAndPay
               requests={requests}
               getSetNameAndBalance={getSetNameAndBalance}
             />
-            <AccountDetails getSetNameAndBalance={getSetNameAndBalance} name={name} address={address} balance={balance} />
+            <AccountDetails
+              getSetNameAndBalance={getSetNameAndBalance}
+              name={name}
+              address={address}
+              balance={balance}
+            />
           </div>
           <div className="secondColumn">
             <RecentActivity history={history} />
