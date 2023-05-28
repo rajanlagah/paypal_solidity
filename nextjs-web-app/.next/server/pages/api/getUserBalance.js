@@ -25,7 +25,7 @@ const Moralis = (__webpack_require__(1544)["default"]);
 // })
 const getUserBalance = async (req, res)=>{
     const { userAddress  } = req.query;
-    if (Moralis.Core.isStarted) {
+    if (!Moralis.Core.isStarted) {
         await Moralis.start({
             apiKey: process.env.MORALIS_API_KEY
         });
