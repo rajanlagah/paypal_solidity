@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DollarOutlined, SwapOutlined } from "@ant-design/icons";
-import { Modal, Input, InputNumber } from "antd";
+import { Modal, Input, InputNumber, Spin} from "antd";
 
 import ABI from "../abi.json";
 import { useMoralis, useWeb3Contract } from "react-moralis";
@@ -11,7 +11,9 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
   const [requestAmount, setRequestAmount] = useState(5);
   const [requestAddress, setRequestAddress] = useState("");
   const [requestMessage, setRequestMessage] = useState("");
+  const [waitingForConfirmation, setwaitingForConfirmation] = useState(false);
   const [isSuccessCreateReq, setisSuccessCreateReq] = useState(false);
+  const [isuserAddressWrong, setisuserAddressWrong] = useState(false);
   const [isSuccessPayReq, setisSuccessPayReq] = useState(false);
 
   const { chainId: chainIdHex, isWeb3Enabled, account } = useMoralis();
@@ -19,7 +21,7 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
 
   const {
     runContractFunction: payRequest,
-    isLoading,
+    isLoading: isLoadingPayReq,
     isFetching
     // onSuccess:isSuccess,
   } = useWeb3Contract({
@@ -34,8 +36,8 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
   // const createReq = () => {
   // console.log("requestAddress",requestAddress)
   const {
-    runContractFunction: callCreateRequest
-    // isLoading,
+    runContractFunction: callCreateRequest,
+    isLoading: isLoadingCreateReq
     // isFetching,
     // onSuccess:isSuccessCreateReq
   } = useWeb3Contract({
@@ -77,17 +79,28 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
   const handleOnPayReqClick = async () => {
     setisSuccessPayReq(false);
     const res = await payRequest();
-    await res.wait(1);
-    setisSuccessPayReq(true);
+    if(res){
+      setwaitingForConfirmation(true)
+      await res.wait(1);
+      setwaitingForConfirmation(false)
+      setisSuccessPayReq(true);
+    }
     hidePayModal();
   };
 
   const handleOnCreateReqClick = async () => {
     setisSuccessCreateReq(false);
+    setisuserAddressWrong(false);
     const res = await callCreateRequest();
-    await res.wait(1);
-    setisSuccessCreateReq(true);
-    hideRequestModal();
+    if (res) {
+      setwaitingForConfirmation(true);
+      await res.wait(1);
+      setwaitingForConfirmation(false);
+      setisSuccessCreateReq(true);
+      hideRequestModal();
+    } else {
+      setisuserAddressWrong(true);
+    }
   };
 
   return (
@@ -96,44 +109,67 @@ function RequestAndPay({ requests, getSetNameAndBalance }) {
         title="Confirm Payment"
         open={payModal}
         onOk={handleOnPayReqClick}
+        confirmLoading={isLoadingPayReq}
         onCancel={hidePayModal}
         okText="Proceed To Pay"
         cancelText="Cancel"
       >
-        {requests && requests["0"].length > 0 && (
+        {!waitingForConfirmation && requests && requests["0"].length > 0 && (
           <>
             <h2>Sending payment to {requests["3"][0]}</h2>
-            {/* <h3>Value: {requests["1"][0]} Matic</h3> */}
             <p>"{requests["2"][0]}"</p>
           </>
         )}
+        {waitingForConfirmation &&
+           <Spin tip="Waiting for confirmation" size="large">
+            <br/>
+            <br/>
+            <div className="content" />
+            <br/>
+            <br/>
+          </Spin>
+        }
       </Modal>
       <Modal
         title="Request A Payment"
         open={requestModal}
         onOk={handleOnCreateReqClick}
+        confirmLoading={isLoadingCreateReq || waitingForConfirmation}
         onCancel={hideRequestModal}
         okText="Proceed To Request"
         cancelText="Cancel"
       >
-        {/* <h2>Sending req to {requestAddress}</h2> */}
-        <p>Amount (Matic)</p>
+        {!waitingForConfirmation &&
+        <>
+        <p>Amount ( {Number(requestAmount || 0) / 1000} Matic)</p>
         <InputNumber
           value={requestAmount}
           onChange={(val) => setRequestAmount(val)}
-        />
+          />
         <p>From (address)</p>
         <Input
           placeholder="0x..."
           value={requestAddress}
+          status={isuserAddressWrong && "error"}
           onChange={(val) => setRequestAddress(val.target.value)}
-        />
+          />
         <p>Message</p>
         <Input
           placeholder="Lunch Bill..."
           value={requestMessage}
           onChange={(val) => setRequestMessage(val.target.value)}
-        />
+          />
+          </>
+          }
+        {waitingForConfirmation && (
+          <Spin tip="Waiting for confirmation" size="large">
+            <br/>
+            <br/>
+            <div className="content" />
+            <br/>
+            <br/>
+          </Spin>
+        )}
       </Modal>
       <div className="requestAndPay">
         <div

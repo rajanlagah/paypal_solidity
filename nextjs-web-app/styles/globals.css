@@ -200,3 +200,8 @@ code {
 .p-2{
   padding: 1.2rem;
 }
+
+.disable-content {
+  pointer-events: none;
+  opacity: 0.4;
+}

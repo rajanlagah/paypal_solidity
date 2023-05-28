@@ -76,10 +76,12 @@ export default function HomePage() {
   });
 
   const getSetNameAndBalance = async () => {
+    setisLoadingConfig(true);
     try {
       const _user_name = await getMyName();
       const _user_history = await getMyHistory();
       const _user_requests = await getAllRequests();
+      setisLoadingConfig(false);
       if (_user_name && _user_name.length > 0 && _user_name[1]) {
         setName(_user_name[0]);
       }
@@ -87,8 +89,6 @@ export default function HomePage() {
       console.log("_user_history -", _user_history);
       console.log("_user_requests -", _user_requests);
 
-      // setBalance(String(response.balance));
-      // setDollarsBalance(String(response.dollar_value));
       if (_user_history) {
         setHistory(convertArrayToObjects(_user_history));
       }
@@ -96,6 +96,8 @@ export default function HomePage() {
         setRequests(_user_requests);
       }
     } catch (e) {
+      setisLoadingConfig(false);
+
       console.log("err", e);
     }
   };
@@ -103,26 +105,26 @@ export default function HomePage() {
   useEffect(() => {
     if (isWeb3Enabled && address) {
       getSetNameAndBalance();
-      getSetUserBalance()
+      getSetUserBalance();
     }
   }, [isWeb3Enabled, address]);
 
   const getSetUserBalance = async () => {
-    try{
-        const res = await fetchUserBalance(address)
-        console.log("res",res)
-        if(!res.error){
-            setDollarsBalance(res.dollar_value)
-            setBalance(res.balance)
-        }
-        console.log("res res = ", res)
-    }catch(e){
-        console.log("Exception",e)
+    try {
+      const res = await fetchUserBalance(address);
+      console.log("res", res);
+      if (!res.error) {
+        setDollarsBalance(res.dollar_value);
+        setBalance(res.balance);
+      }
+      console.log("res res = ", res);
+    } catch (e) {
+      console.log("Exception", e);
     }
-  }
+  };
 
   return (
-    <div className="App">
+    <div className={`App ${isLoadingConfig && "disable-content"}`}>
       <Layout>
         <Content className="content">
           <div className="firstColumn">
