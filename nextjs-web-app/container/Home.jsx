@@ -5,11 +5,11 @@ import { useMoralis, useWeb3Contract } from "react-moralis";
 
 import ABI from "./../abi.json";
 import CurrentBalance from "../components/CurrentBalance";
-import RequestAndPay from "../components/RequestAndPay";
 import AccountDetails from "../components/AccountDetails";
 import RecentActivity from "../components/RecentActivity";
 import { Layout } from "antd";
 import fetchUserBalance from "../api/fetchUserBalance";
+import RequestAndPayContainer from "./RequestAndPayContainer";
 
 const { Header, Content } = Layout;
 
@@ -129,7 +129,7 @@ export default function HomePage() {
         <Content className="content">
           <div className="firstColumn">
             <CurrentBalance dollarsBalance={dollarsBalance} />
-            <RequestAndPay
+            <RequestAndPayContainer
               requests={requests}
               getSetNameAndBalance={getSetNameAndBalance}
             />
