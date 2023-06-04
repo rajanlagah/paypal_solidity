@@ -85,9 +85,6 @@ export default function HomePage() {
       if (_user_name && _user_name.length > 0 && _user_name[1]) {
         setName(_user_name[0]);
       }
-      console.log("_user_name -", _user_name);
-      console.log("_user_history -", _user_history);
-      console.log("_user_requests -", _user_requests);
 
       if (_user_history) {
         setHistory(convertArrayToObjects(_user_history));
@@ -117,7 +114,6 @@ export default function HomePage() {
         setDollarsBalance(res.dollar_value);
         setBalance(res.balance);
       }
-      console.log("res res = ", res);
     } catch (e) {
       console.log("Exception", e);
     }

@@ -32,13 +32,9 @@ function RequestAndPayContainer({ requests, getSetNameAndBalance }) {
     msgValue: String(Number(requests["1"][0] * 1e15))
   });
 
-  // const createReq = () => {
-  // console.log("requestAddress",requestAddress)
   const {
     runContractFunction: callCreateRequest,
     isLoading: isLoadingCreateReq
-    // isFetching,
-    // onSuccess:isSuccessCreateReq
   } = useWeb3Contract({
     abi: ABI,
     chainId,
@@ -50,9 +46,7 @@ function RequestAndPayContainer({ requests, getSetNameAndBalance }) {
       _message: requestMessage
     }
   });
-  //   callCreateRequest()
-  // }
-  // console.log("isSecureContext - ",isSuccessCreateReq)
+
   useEffect(() => {
     if (isSuccessPayReq || isSuccessCreateReq) {
       getSetNameAndBalance();

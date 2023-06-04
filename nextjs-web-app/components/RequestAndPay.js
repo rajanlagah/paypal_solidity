@@ -96,7 +96,7 @@ const RequestAndPay = ({
         onClick={() => {
           showPayModal();
         }}
-      >dsds
+      >
         <DollarOutlined style={{ fontSize: "26px" }} />
         Pay
         {requests && requests[0] && requests[0].length > 0 && (
